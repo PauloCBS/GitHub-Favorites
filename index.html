@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/style.css">
+    <title>GITHUB Favorites</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div id="app">
+        <header class="app-header">
+           <div class="search">
+            <h1>GitHub Favorites</h1>
+            <label class="sr-only" for="input-search">GitHub User</label>
+            <input type="text" id="input-search" placeholder="GitHub User">
+            <button>&plus;</button>
+           </div>
+        </header>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Repositories</th>
+                    <th>Followers</th>
+                    <th></th>
+                </tr>
+
+                <tbody>
+                    <tr>
+                        <td class="user">
+                            <img src="https://github.com/PauloCBS.png" alt="imagem de Paulo Silva">
+                            <a href="https://github.com/PauloCBS">
+                            <p>Paulo Silva</p>
+                            <span>PauloCBS</span>
+                            </a>
+                        </td>
+                        <td class="repositories">
+                            55
+                        </td>
+                        <td class="followers">
+                            1
+                        </td>
+                        <td>
+                            <button class="remove">&times;</button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </thead>
+            
+        </table>
+
+    </div>
+    
+</body>
+</html>
