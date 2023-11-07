@@ -87,6 +87,8 @@ td .remove{
     background: none;
     border: none;
     color: rgb(118, 4, 4);
+
+    cursor: pointer;
 }
 
 table tr:nth-child(odd){
