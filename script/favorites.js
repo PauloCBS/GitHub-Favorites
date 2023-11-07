@@ -1,28 +1,11 @@
-export class GithubUser {
-    static search(username){
-        const endpoint = `https://api.github.com/users/${username}`
-
-        return fetch(endpoint).then(data =>data.json())
-        .then(
-            ({login, name, public_repos, followers} )=> ({
-            
-            login,
-            name,
-            public_repos,
-            followers
-
-        }))
-    }
-}
-
-
+import { GithubUser } from "./githubuser.js"
 
 export class Favorites {
     constructor(root){
         this.root = document.querySelector(root)
         this.load()
 
-        GithubUser.search('PauloCBS').then(user => console.log(user))
+       
     }
 
     load(){
@@ -49,7 +32,31 @@ export class Favorites {
     ] }*/
     
     async add(username){
-     const user = await GithubUser.search(username)
+     
+        try{
+
+            const userExists = this.entries.find(entry => entry.login === username)
+            if(userExists){
+                throw new Error('user already added')
+            }
+
+
+            const user = await GithubUser.search(username)
+     
+            console.log(user)
+            
+            if(user.login === undefined){
+                throw new Error("User not found :C")
+            }   
+            
+            this.entries = [user, ... this.entries]
+            this.update()
+            this.save()
+
+        } catch(error){
+            alert(error.message)
+        }
+     
     }
     
     delete(user){
@@ -57,6 +64,11 @@ export class Favorites {
        
         this.entries = filteredEntries
         this.update()
+        this.save()
+    }
+
+    save(){
+        localStorage.setItem('@github-favorites:', JSON.stringify(this.entries))
     }
 }
 
@@ -78,6 +90,7 @@ export class FavoritesView extends Favorites{
             const input = this.root.querySelector('.search input').value
         
            this.add(input)
+           
         }
          
     }
@@ -92,6 +105,7 @@ export class FavoritesView extends Favorites{
             const row = this.createRow()
             row.querySelector('.user img').src = `https://github.com/${user.login}.png`
             row.querySelector('.user img').alt = `Imagem de ${user.name}`
+            row.querySelector('.user a').href = `https://github.com/${user.login}`
             row.querySelector('.user p').textContent = user.name
             row.querySelector('.user span').textContent = user.login
             row.querySelector('.repositories').textContent = user.public_repos
